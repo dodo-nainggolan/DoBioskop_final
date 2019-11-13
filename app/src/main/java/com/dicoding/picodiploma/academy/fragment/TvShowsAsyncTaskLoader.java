@@ -21,7 +21,8 @@ public class TvShowsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<TvShows>> 
     private boolean mHasResult = false;
     private String tvshow;
 
-    TvShowsAsyncTaskLoader(final Context context, String tvshow) {
+
+    public TvShowsAsyncTaskLoader(final Context context, String tvshow) {
         super ( context );
         onContentChanged ();
         this.tvshow = tvshow;
@@ -57,8 +58,14 @@ public class TvShowsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<TvShows>> 
         SyncHttpClient client = new SyncHttpClient ();
         final ArrayList<TvShows> tvshowsItemses = new ArrayList<> ();
 
-        String url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY;
+        String url = "";
 
+        if (tvshow == "") {
+            url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY + "&language=en-US";
+        }
+        else {
+            url = "https://api.themoviedb.org/3/search/tv?api_key=" + API_KEY + "&language=en-US&query=" + tvshow;
+        }
         client.get ( url, new AsyncHttpResponseHandler () {
             @Override
             public void onStart() {

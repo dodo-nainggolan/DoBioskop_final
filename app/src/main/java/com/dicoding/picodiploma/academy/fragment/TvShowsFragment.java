@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.dicoding.picodiploma.academy.R;
@@ -30,7 +32,8 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
     TvShowsAdapter adapter;
 
     private ArrayList<TvShows> list = new ArrayList<> ();
-
+    private Button btnSearchTv;
+    private EditText searchBarTv;
     private RecyclerView rv;
     private ProgressBar progressBar;
 
@@ -55,6 +58,19 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
         rv = view.findViewById ( R.id.grid_view_list_item );
         progressBar = view.findViewById ( R.id.progressBar );
 
+        btnSearchTv = view.findViewById ( R.id.btn_search_tv );
+        searchBarTv = view.findViewById ( R.id.search_bar_tv );
+
+        btnSearchTv.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle ();
+                bundle.putString ( "cari", searchBarTv.getText ().toString () );
+                Log.e ( TAG, "onClick: " + "Ditekan" );
+                getLoaderManager ().restartLoader ( 0, bundle, TvShowsFragment.this );
+            }
+        } );
+
         rv.setLayoutManager ( new GridLayoutManager ( getActivity (), 2 ) );
         rv.setAdapter ( adapter );
 
@@ -65,12 +81,13 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public Loader<ArrayList<TvShows>> onCreateLoader(int id, Bundle args) {
-
-        return new TvShowsAsyncTaskLoader ( getActivity (), "" );
+        showLoading ( true );
+        return new TvShowsAsyncTaskLoader ( getActivity (), args.getString ( "cari", "" ) );
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<TvShows>> loader, ArrayList<TvShows> data) {
+        showLoading ( false );
         adapter.setData ( data );
 
     }
@@ -81,6 +98,7 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
 //TODO optimize dirty trick
 //         adapter.setData ( null );
     }
+
     private void showLoading(Boolean state) {
         if (state) {
             progressBar.setVisibility ( View.VISIBLE );

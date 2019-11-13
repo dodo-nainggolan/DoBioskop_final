@@ -10,7 +10,6 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.dicoding.picodiploma.academy.R;
-import com.dicoding.picodiploma.academy.StackWidgetService;
 
 /**
  * Implementation of App Widget functionality.
@@ -24,15 +23,20 @@ public class ImageBannerWidget extends AppWidgetProvider {
         Intent intent = new Intent(context, StackWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.image_banner_widget);
         views.setRemoteAdapter(R.id.stack_view, intent);
         views.setEmptyView(R.id.stack_view, R.id.empty_view);
+
         Intent toastIntent = new Intent(context, ImageBannerWidget.class);
+
         toastIntent.setAction(ImageBannerWidget.TOAST_ACTION);
         toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
         PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
+
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
     @Override

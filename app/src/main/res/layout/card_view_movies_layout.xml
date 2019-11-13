@@ -87,6 +87,7 @@
             android:layout_marginStart="26dp"
             android:layout_toEndOf="@+id/foto_film"
             android:layout_toRightOf="@id/foto_film"
+            android:onClick="sendNotification"
             android:text="@string/btn_fav" />
 
     </RelativeLayout>

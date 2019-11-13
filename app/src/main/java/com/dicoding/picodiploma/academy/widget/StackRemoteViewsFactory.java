@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.academy;
+package com.dicoding.picodiploma.academy.widget;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,26 +8,34 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.dicoding.picodiploma.academy.widget.ImageBannerWidget;
+import com.dicoding.picodiploma.academy.R;
+import com.dicoding.picodiploma.academy.adapter.MoviesAdapter;
+import com.dicoding.picodiploma.academy.entity.Movies;
 
 import java.util.ArrayList;
 import java.util.List;
 
-class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
+public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private final List<Bitmap> mWidgetItems = new ArrayList<>();
     private final Context mContext;
-    StackRemoteViewsFactory(Context context) {
+    private ArrayList<Movies> data = new ArrayList<>();
+
+    MoviesAdapter adapter;
+
+    public StackRemoteViewsFactory(Context context) {
         mContext = context;
     }
 
     @Override
     public void onCreate() {
+        adapter = new MoviesAdapter ();
 
     }
 
     @Override
     public void onDataSetChanged() {
+
         mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.contoh));
         mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.contoh));
         mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.contoh));
@@ -48,11 +56,17 @@ class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public RemoteViews getViewAt(int position) {
+
         RemoteViews rv = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
         rv.setImageViewBitmap(R.id.imageView, mWidgetItems.get(position));
+
+
         Bundle extras = new Bundle();
+
         extras.putInt(ImageBannerWidget.EXTRA_ITEM, position);
+
         Intent fillInIntent = new Intent();
+
         fillInIntent.putExtras(extras);
         rv.setOnClickFillInIntent(R.id.imageView, fillInIntent);
         return rv;
@@ -77,4 +91,5 @@ class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     public boolean hasStableIds() {
         return false;
     }
+
 }

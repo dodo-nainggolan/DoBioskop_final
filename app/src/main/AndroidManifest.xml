@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <service
-            android:name="com.dicoding.picodiploma.academy.StackWidgetService"
+            android:name="com.dicoding.picodiploma.academy.widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name=".widget.ImageBannerWidget">

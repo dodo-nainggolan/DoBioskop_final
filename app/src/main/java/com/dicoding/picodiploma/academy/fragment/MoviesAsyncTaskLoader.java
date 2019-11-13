@@ -23,7 +23,7 @@ public class MoviesAsyncTaskLoader extends AsyncTaskLoader<ArrayList<Movies>> {
     private boolean mHasResult = false;
     private String movies;
 
-    MoviesAsyncTaskLoader(final Context context, String movies) {
+    public MoviesAsyncTaskLoader(final Context context, String movies) {
         super ( context );
         onContentChanged ();
         this.movies = movies;

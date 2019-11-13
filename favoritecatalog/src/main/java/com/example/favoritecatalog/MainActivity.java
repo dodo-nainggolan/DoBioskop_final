@@ -28,15 +28,22 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
         RecyclerView rvView = findViewById(R.id.card_view_list_item_fav);
         adapter = new FavoriteFilmAdapter();
 
-        HandlerThread handlerThread = new HandlerThread("DataObserver");
-        handlerThread.start();
-        Handler handler = new Handler(handlerThread.getLooper());
-        DataObserver myObserver = new DataObserver(handler, this);
-        getContentResolver().registerContentObserver(DatabaseContractFilm.MoviesColumn.CONTENT_URI, true, myObserver);
 
-        new FavoriteFilmAsync(this, this).execute();
+        ArrayList<FavoriteFilm> fav = new ArrayList<FavoriteFilm>();
+        fav.add(new FavoriteFilm(100,"ASD","2111","2222",""));
+        fav.add(new FavoriteFilm(101,"ASE","2112","2223",""));
 
+        adapter.setListNotes(fav);
         rvView.setAdapter(adapter);
+
+
+//        HandlerThread handlerThread = new HandlerThread("DataObserver");
+//        handlerThread.start();
+//        Handler handler = new Handler(handlerThread.getLooper());
+//        DataObserver myObserver = new DataObserver(handler, this);
+//        getContentResolver().registerContentObserver(DatabaseContractFilm.MoviesColumn.CONTENT_URI, true, myObserver);
+
+//        new FavoriteFilmAsync(this, this).execute();
     }
 
     @Override

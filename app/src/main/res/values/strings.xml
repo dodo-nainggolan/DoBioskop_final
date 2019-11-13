@@ -15,4 +15,6 @@
     <string name="tab_text_1">FILM</string>
     <string name="tab_text_2">TV SHOWS</string>
     <string name="content_tab_tv">INI TAB TVSHOW</string>
+    <string name="appwidget_text">STAR WARS BANNER</string>
+    <string name="empty_text">NO DATA</string>
 </resources>

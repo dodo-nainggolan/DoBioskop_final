@@ -1,6 +1,7 @@
 package com.example.favoritecatalog;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,11 @@ public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapte
     private int idFilm;
 
     public FavoriteFilmAdapter() { }
+
+    public FavoriteFilmAdapter(ArrayList<FavoriteFilm> listFav) {
+        this.listFav = listFav;
+        Log.e("UKURAN", "" + listFav.size());
+    }
 
     public ArrayList<FavoriteFilm> getListNotes() {
         return listFav;

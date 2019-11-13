@@ -1,0 +1,18 @@
+<resources>
+    <string name="title_home">MOVIES</string>
+    <string name="title_dashboard">TV SHOWS</string>
+    <string name="judul_film">Judul Film</string>
+    <string name="deksripsi_film">Deskripsi Film</string>
+    <string name="rilis">Rilis Film</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="change_language_settings">Change Language Settings</string>
+    <string name="btn_fav">Favorite</string>
+    <string name="favorite_dashboard">FAVORITE</string>
+    <string name="btn_remove">REMOVE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tab_text_1">FILM</string>
+    <string name="tab_text_2">TV SHOWS</string>
+    <string name="content_tab_tv">INI TAB TVSHOW</string>
+</resources>

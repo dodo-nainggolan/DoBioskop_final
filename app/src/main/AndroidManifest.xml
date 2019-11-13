@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dicoding.picodiploma.academy">
 
+    <permission
+        android:name="com.dicoding.picodiploma.academy.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.dicoding.picodiploma.academy.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,6 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <provider
+            android:name=".provider.MoviesProvider"
+            android:authorities="com.dicoding.picodiploma.academy"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.dicoding.picodiploma.academy.READ_DATABASE"
+            android:writePermission="com.dicoding.picodiploma.academy.WRITE_DATABASE"></provider>
+
         <activity android:name=".activity.ReminderActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

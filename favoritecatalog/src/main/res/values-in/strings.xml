@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Cobain</string>
+    <string name = "title_home"> FILM </string>
+    <string name = "title_dashboard"> SIARAN TV </string>
+    <string name = "judul_film"> Judul Film </string>
+    <string name = "deksripsi_film"> Deskripsi Film </string>
+    <string name = "rilis"> Rilis Film </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="change_language_settings">Ubah Bahasa</string>
+    <string name="favorite_dashboard">FAVORIT</string>
+    <string name="btn_fav">Favorit</string>
+    <string name="btn_remove">HAPUS</string>
+    <string name="tab_text_1">FILM</string>
+    <string name="tab_text_2">SIARAN TV</string>
+    <string name="content_tab_tv">INI TAB TVSHOW</string>
+    <string name="reminder_settings">Reminder Settings</string>
+    <string name="daily_reminder">Set Daily Reminder</string>
+    <string name="bored">Yuk Lihat-Lihat Film terbaru ~</string>
+    <string name="pesan_reminder">Yuk liat video video terbaru</string>
+    <string name="set_daily">Daily Reminder SEt</string>
+    <string name="remove_daily">Daily Reminder Removed</string>
+    <string name="search">Search Something ...</string>
+</resources>

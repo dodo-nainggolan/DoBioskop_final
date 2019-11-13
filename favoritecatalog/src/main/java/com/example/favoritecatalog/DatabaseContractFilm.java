@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.academy.db;
+package com.example.favoritecatalog;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

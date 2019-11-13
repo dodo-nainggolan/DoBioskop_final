@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp"
+    android:background="@drawable/layout_border"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/foto_film"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/frame"
+        tools:src="@color/colorAccent" />
+
+    <Button
+        android:id="@+id/btn_fav_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/foto_film"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btn_fav" />
+
+    <TextView
+        android:id="@+id/judul_film"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_fav_tv"
+        android:text="@string/judul_film"
+        android:textAlignment="center"
+        android:textSize="16dp" />
+
+</RelativeLayout>

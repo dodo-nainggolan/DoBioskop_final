@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Cobain</string>
+    <string name="title_home">MOVIES</string>
+    <string name="title_dashboard">TV SHOWS</string>
+    <string name="judul_film">Judul Film</string>
+    <string name="deksripsi_film">Deskripsi Film</string>
+    <string name="rilis">Rilis Film</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="change_language_settings">Change Language Settings</string>
+    <string name="btn_fav">Favorite</string>
+    <string name="favorite_dashboard">FAVORITE</string>
+    <string name="btn_remove">REMOVE</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tab_text_1">FILM</string>
+    <string name="tab_text_2">TV SHOWS</string>
+    <string name="content_tab_tv">INI TAB TVSHOW</string>
+    <string name="appwidget_text">STAR WARS BANNER</string>
+    <string name="empty_text">NO DATA</string>
+
+    <string name="content_title">Content title</string>
+    <string name="content_text">Content text</string>
+    <string name="subtext">Sub text</string>
+    <string name="send_notif">Send Notif</string>
+    <string name="reminder_settings">Reminder Settings</string>
+    <string name="daily_reminder">Set Daily Reminder</string>
+    <string name="new_movie_reminder">Release Reminder</string>
+    <string name="judul_reminder">Yuk Lihat-Lihat Film terbaru ~</string>
+    <string name="pesan_reminder">Yuk liat video video terbaru</string>
+    <string name="set_daily">Daily Reminder SEt</string>
+    <string name="remove_daily">Daily Reminder Removed</string>
+    <string name="search">Search Something ...</string>
+
+</resources>

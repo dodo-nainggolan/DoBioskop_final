@@ -11,8 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activity.ReminderActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.MainActivity" />
+        </activity>
+
         <service
-            android:name="com.dicoding.picodiploma.academy.widget.StackWidgetService"
+            android:name=".widget.StackWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name=".widget.ImageBannerWidget">
@@ -32,28 +38,28 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyTabLayout" />
         </activity>
-        <activity android:name=".TvShowsDetailActivity">
+        <activity android:name=".activity.TvShowsDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
-        <activity android:name=".FavoriteDetailActivity">
+        <activity android:name=".activity.FavoriteDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
-        <activity android:name=".MoviesDetailActivity">
+        <activity android:name=".activity.MoviesDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
-        <activity android:name=".FavoriteTvShowsDetailActivity">
+        <activity android:name=".activity.FavoriteTvShowsDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".activity.MainActivity" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="MOVIES"
             android:launchMode="singleTop">
             <intent-filter>

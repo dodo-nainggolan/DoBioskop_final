@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dicoding.picodiploma.academy.R;
-import com.dicoding.picodiploma.academy.TvShowsDetailActivity;
+import com.dicoding.picodiploma.academy.activity.TvShowsDetailActivity;
 import com.dicoding.picodiploma.academy.db.FavoriteTvShowsHelper;
 import com.dicoding.picodiploma.academy.entity.TvShows;
 import com.squareup.picasso.Picasso;

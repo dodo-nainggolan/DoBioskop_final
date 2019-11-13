@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dicoding.picodiploma.academy.MoviesDetailActivity;
+import com.dicoding.picodiploma.academy.activity.MoviesDetailActivity;
 import com.dicoding.picodiploma.academy.entity.Movies;
 import com.dicoding.picodiploma.academy.R;
 import com.dicoding.picodiploma.academy.db.FavoriteFilmHelper;

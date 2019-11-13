@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.academy;
+package com.dicoding.picodiploma.academy.activity;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -6,16 +6,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dicoding.picodiploma.academy.R;
 import com.dicoding.picodiploma.academy.entity.FavoriteFilm;
-import com.dicoding.picodiploma.academy.entity.FavoriteTvShows;
 import com.squareup.picasso.Picasso;
 
-public class FavoriteTvShowsDetailActivity extends AppCompatActivity {
+public class FavoriteDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.activity_favorite_tvshows_detail );
+        setContentView ( R.layout.activity_favorite_film_detail );
         setTitle ( "Detail Film" );
 
         TextView tvJudul = findViewById ( R.id.judul_film );
@@ -23,15 +23,15 @@ public class FavoriteTvShowsDetailActivity extends AppCompatActivity {
         TextView tvRilis = findViewById ( R.id.rilis_film );
         ImageView tvFotoDetail = findViewById ( R.id.foto_detail );
 
-        FavoriteTvShows favoriteTvShows = getIntent ().getParcelableExtra ( "myData" );
+        FavoriteFilm favoriteFilm = getIntent ().getParcelableExtra ( "myData" );
 
-        if (favoriteTvShows != null) {
+        if (favoriteFilm != null) {
 
-            String url = "https://image.tmdb.org/t/p/w500" + favoriteTvShows.getGambarFilm ();
+            String url = "https://image.tmdb.org/t/p/w500" + favoriteFilm.getGambarFilm ();
 
-            tvJudul.setText ( favoriteTvShows.getNamaFilm () );
-            tvDeskripsi.setText ( favoriteTvShows.getDeskripsiFilm () );
-            tvRilis.setText ( favoriteTvShows.getRilisFilm () );
+            tvJudul.setText ( favoriteFilm.getNamaFilm () );
+            tvDeskripsi.setText ( favoriteFilm.getDeskripsiFilm () );
+            tvRilis.setText ( favoriteFilm.getRilisFilm () );
             Picasso.get ().load ( url ).into ( tvFotoDetail );
         }
     }

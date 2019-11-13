@@ -11,9 +11,12 @@ import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.dicoding.picodiploma.academy.R;
@@ -31,6 +34,8 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     MoviesAdapter adapter;
     private RecyclerView rv;
     private ProgressBar progressBar;
+    public Button btn_search;
+    public EditText search_bar;
 
 
     public MoviesFragment() {
@@ -40,39 +45,55 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate ( R.layout.fragment_movies, container, false );
+        View v = inflater.inflate(R.layout.fragment_movies, container, false);
+
         return v;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated ( view, savedInstanceState );
+    public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        adapter = new MoviesAdapter ();
-        adapter.notifyDataSetChanged ();
+        adapter = new MoviesAdapter();
+        adapter.notifyDataSetChanged();
 
-        rv = view.findViewById ( R.id.card_view_list_item );
-        progressBar = view.findViewById ( R.id.progressBar );
+        btn_search = view.findViewById(R.id.btn_search);
+        search_bar = view.findViewById(R.id.search_bar);
 
-        rv.setLayoutManager ( new LinearLayoutManager ( getContext () ) );
-        rv.setAdapter ( adapter );
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("cari",search_bar.getText().toString());
 
+                getLoaderManager().restartLoader(0, bundle, MoviesFragment.this);
+            }
+        });
 
-        Bundle bundle = new Bundle ();
-        getLoaderManager ().initLoader ( 0, bundle, this );
+        rv = view.findViewById(R.id.card_view_list_item);
+        progressBar = view.findViewById(R.id.progressBar);
 
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setAdapter(adapter);
+
+        Bundle bundle = new Bundle();
+        getLoaderManager().initLoader(0, bundle, this);
     }
 
     @Override
     public Loader<ArrayList<Movies>> onCreateLoader(int id, Bundle args) {
-        showLoading ( true );
-        return new MoviesAsyncTaskLoader ( getActivity (), "" );
+        showLoading(true);
+
+
+        Log.e("oncreateloader", args.getString("cari", "GA NONGOL" ));
+        args.getString("cari", "GA NONGOL");
+        return new MoviesAsyncTaskLoader(getActivity(), args.getString("cari", ""));
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Movies>> loader, ArrayList<Movies> data) {
-        showLoading ( false );
-        adapter.setData ( data );
+        showLoading(false);
+        adapter.setData(data);
     }
 
     @Override
@@ -80,13 +101,17 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 
 //TODO optimize dirty trick
 //                adapter.setData ( null );
+//        showLoading(true);
+//        new MoviesAsyncTaskLoader(getActivity(), "");
     }
+
+
 
     private void showLoading(Boolean state) {
         if (state) {
-            progressBar.setVisibility ( View.VISIBLE );
+            progressBar.setVisibility(View.VISIBLE);
         } else {
-            progressBar.setVisibility ( View.GONE );
+            progressBar.setVisibility(View.GONE);
         }
     }
 

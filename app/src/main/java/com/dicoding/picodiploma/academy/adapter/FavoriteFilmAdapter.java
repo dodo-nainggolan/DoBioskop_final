@@ -1,7 +1,6 @@
 package com.dicoding.picodiploma.academy.adapter;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.dicoding.picodiploma.academy.FavoriteDetailActivity;
+import com.dicoding.picodiploma.academy.activity.FavoriteDetailActivity;
 import com.dicoding.picodiploma.academy.R;
 import com.dicoding.picodiploma.academy.entity.FavoriteFilm;
 import com.dicoding.picodiploma.academy.db.FavoriteFilmHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapter.CardViewViewHolder> {
 

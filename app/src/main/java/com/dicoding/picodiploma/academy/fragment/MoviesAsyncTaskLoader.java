@@ -59,7 +59,14 @@ public class MoviesAsyncTaskLoader extends AsyncTaskLoader<ArrayList<Movies>> {
         SyncHttpClient client = new SyncHttpClient ();
         final ArrayList<Movies> moviesItemses = new ArrayList<> ();
 
-        String url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY  + "&language=en-US";
+        String url = "";
+
+        if (movies == "") {
+            url = "https://api.themoviedb.org/3/discover/movie?api_key=" + API_KEY + "&language=en-US";
+        }
+        else {
+            url = "https://api.themoviedb.org/3/search/movie?api_key=" + API_KEY + "&language=en-US&query=" + movies;
+        }
 
         client.get ( url, new AsyncHttpResponseHandler () {
             @Override

@@ -1,35 +1,37 @@
-package com.dicoding.picodiploma.academy;
+package com.dicoding.picodiploma.academy.activity;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
-import com.dicoding.picodiploma.academy.db.DatabaseHelper;
+import com.dicoding.picodiploma.academy.MyTabLayout;
+import com.dicoding.picodiploma.academy.R;
 import com.dicoding.picodiploma.academy.db.FavoriteFilmHelper;
 import com.dicoding.picodiploma.academy.db.FavoriteTvShowsHelper;
+import com.dicoding.picodiploma.academy.fragment.MoviesAsyncTaskLoader;
 import com.dicoding.picodiploma.academy.fragment.MoviesFragment;
 import com.dicoding.picodiploma.academy.fragment.TvShowsFragment;
-import com.dicoding.picodiploma.academy.widget.StackWidgetService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import javax.security.auth.login.LoginException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.container_layout, fragment, fragment.getClass().getSimpleName())
                             .commit();
 
+
                     return true;
 
                 case R.id.navigation_dashboard:
@@ -71,20 +74,13 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.container_layout, fragment, fragment.getClass().getSimpleName())
                             .commit();
 
+
                     return true;
 
                 case R.id.favorite_dashboard:
 
                     Intent favActivity = new Intent(MainActivity.this, MyTabLayout.class);
                     startActivity(favActivity);
-
-//                    title = "MY FAVORITE";
-//                    setTitle ( title );
-//                    fragment = new FavoriteFilmFragment ();
-//                    getSupportFragmentManager ().beginTransaction ()
-//                            .replace ( R.id.container_layout, fragment, fragment.getClass ().getSimpleName () )
-//                            .commit ();
-
                     return true;
             }
             return false;
@@ -113,8 +109,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
     }
 
     @Override
@@ -122,7 +119,11 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_change_settings) {
             Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
             startActivity(mIntent);
+        } else if (item.getItemId() == R.id.reminder_settings) {
+            Intent mIntent = new Intent(MainActivity.this, ReminderActivity.class);
+            startActivity(mIntent);
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -130,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(MainActivity.this, MainActivity.class);
 
-        Log.e("TOMBOL", "Ditekan" );
+        Log.e("TOMBOL", "Ditekan");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -159,4 +160,5 @@ public class MainActivity extends AppCompatActivity {
             mNotificationManager.notify(NOTIFICATION_ID, notification);
         }
     }
+
 }

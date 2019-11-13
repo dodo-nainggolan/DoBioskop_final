@@ -1,4 +1,4 @@
-package com.dicoding.picodiploma.academy;
+package com.dicoding.picodiploma.academy.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dicoding.picodiploma.academy.R;
 import com.dicoding.picodiploma.academy.entity.TvShows;
 import com.squareup.picasso.Picasso;
 

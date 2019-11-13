@@ -22,4 +22,13 @@
     <string name="content_text">Content text</string>
     <string name="subtext">Sub text</string>
     <string name="send_notif">Send Notif</string>
+    <string name="reminder_settings">Reminder Settings</string>
+    <string name="daily_reminder">Set Daily Reminder</string>
+    <string name="new_movie_reminder">Release Reminder</string>
+    <string name="judul_reminder">Yuk Lihat-Lihat Film terbaru ~</string>
+    <string name="pesan_reminder">Yuk liat video video terbaru</string>
+    <string name="set_daily">Daily Reminder SEt</string>
+    <string name="remove_daily">Daily Reminder Removed</string>
+    <string name="search">Search Something ...</string>
+
 </resources>

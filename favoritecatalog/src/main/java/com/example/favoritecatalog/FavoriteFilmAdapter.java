@@ -75,6 +75,10 @@ public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapte
             public void onClick(View v) {
 //                favoriteFilmHelper.deleteById ( String.valueOf ( listFav.get ( position ).getId () ) );
 
+                Uri uri = Uri.parse( DatabaseContractFilm.MoviesColumn.CONTENT_URI + "/" + listFav.get(position).getId() );
+
+                holder.itemView.getContext().getContentResolver().delete(uri, null, null);
+
                 Toast.makeText(holder.itemView.getContext(), "Berhasil menghapus data", Toast.LENGTH_SHORT).show();
                 listFav.remove(position);
                 notifyDataSetChanged();

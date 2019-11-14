@@ -56,6 +56,8 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
         btn_search = view.findViewById(R.id.btn_search);
         search_bar = view.findViewById(R.id.search_bar);
 
+        Log.e("fragment", "onViewCreated: "+btn_search );
+
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,6 +1,8 @@
 package com.example.favoritecatalog;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import static com.example.favoritecatalog.DatabaseContractFilm.MoviesColumn.CONTENT_URI;
 
 public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapter.CardViewViewHolder> {
 
@@ -70,6 +74,7 @@ public class FavoriteFilmAdapter extends RecyclerView.Adapter<FavoriteFilmAdapte
             @Override
             public void onClick(View v) {
 //                favoriteFilmHelper.deleteById ( String.valueOf ( listFav.get ( position ).getId () ) );
+
                 Toast.makeText(holder.itemView.getContext(), "Berhasil menghapus data", Toast.LENGTH_SHORT).show();
                 listFav.remove(position);
                 notifyDataSetChanged();

@@ -3,11 +3,14 @@ package com.example.favoritecatalog;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
+import java.net.URI;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements FavoriteFilmCallback {
@@ -27,20 +31,20 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
         setContentView(R.layout.fragment_favorite_film);
 
         RecyclerView rvView = findViewById(R.id.card_view_list_item_fav);
-
 //        ArrayList<FavoriteFilm> fav = new ArrayList<FavoriteFilm>();
 //        fav.add(new FavoriteFilm(100,"ASD","2111","2222",""));
 //        fav.add(new FavoriteFilm(101,"ASE","2112","2223",""));
 //
 //        adapter = new FavoriteFilmAdapter(fav);
+
         adapter = new FavoriteFilmAdapter();
         rvView.setAdapter(adapter);
         rvView.setLayoutManager(new LinearLayoutManager(this));
 
-
         HandlerThread handlerThread = new HandlerThread("DataObserver");
         handlerThread.start();
         Handler handler = new Handler(handlerThread.getLooper());
+
         DataObserver myObserver = new DataObserver(handler, this);
         getContentResolver().registerContentObserver(DatabaseContractFilm.MoviesColumn.CONTENT_URI, true, myObserver);
 
@@ -51,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
     public void preExecute() {
 
     }
+
+
 
     @Override
     public void postExecute(ArrayList<FavoriteFilm> favoriteFilms) {
@@ -83,7 +89,6 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
 
         private WeakReference<Context> weakContext;
         private WeakReference<FavoriteFilmCallback> weakCallback;
-
 
         public FavoriteFilmAsync(Context context, FavoriteFilmCallback callback) {
             weakContext = new WeakReference<>(context);
@@ -120,6 +125,10 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
             super.onPostExecute(favoriteFilms);
             weakCallback.get().postExecute(favoriteFilms);
         }
+//        public void hapus(int id){
+//            Context context = weakContext.get();
+//            context.getContentResolver().delete(id, null, null);
+//        }
     }
 }
 

@@ -9,6 +9,7 @@ import android.net.Uri;
 import com.dicoding.picodiploma.academy.db.FavoriteFilmHelper;
 
 import static com.dicoding.picodiploma.academy.db.DatabaseContractFilm.AUTHORITY;
+import static com.dicoding.picodiploma.academy.db.DatabaseContractFilm.MoviesColumn.CONTENT_URI;
 import static com.dicoding.picodiploma.academy.db.DatabaseContractFilm.TABLE_NAME;
 
 public class MoviesProvider extends ContentProvider {
@@ -30,8 +31,19 @@ public class MoviesProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // Implement this to handle requests to delete one or more rows.
-        throw new UnsupportedOperationException("Not yet implemented");
+        int deleted;
+        switch (sUriMatcher.match(uri)) {
+            case NOTE_ID:
+                deleted = moviesHelper.deleteById(uri.getLastPathSegment());
+                break;
+            default:
+                deleted = 0;
+                break;
+        }
+
+        getContext().getContentResolver().notifyChange(CONTENT_URI, null);
+
+        return deleted;
     }
 
     @Override

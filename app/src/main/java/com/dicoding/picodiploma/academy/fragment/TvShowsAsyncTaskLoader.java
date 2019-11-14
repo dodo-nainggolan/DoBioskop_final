@@ -1,6 +1,7 @@
 package com.dicoding.picodiploma.academy.fragment;
 
 import android.content.Context;
+
 import androidx.loader.content.AsyncTaskLoader;
 
 import com.dicoding.picodiploma.academy.entity.TvShows;
@@ -22,30 +23,30 @@ public class TvShowsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<TvShows>> 
     private String tvshow;
 
     TvShowsAsyncTaskLoader(final Context context, String tvshow) {
-        super ( context );
-        onContentChanged ();
+        super(context);
+        onContentChanged();
         this.tvshow = tvshow;
     }
 
     @Override
     protected void onStartLoading() {
-        if (takeContentChanged ())
-            forceLoad ();
+        if (takeContentChanged())
+            forceLoad();
         else if (mHasResult)
-            deliverResult ( mData );
+            deliverResult(mData);
     }
 
     @Override
     public void deliverResult(final ArrayList<TvShows> data) {
         mData = data;
         mHasResult = true;
-        super.deliverResult ( data );
+        super.deliverResult(data);
     }
 
     @Override
     protected void onReset() {
-        super.onReset ();
-        onStopLoading ();
+        super.onReset();
+        onStopLoading();
         if (mHasResult) {
             mData = null;
             mHasResult = false;
@@ -54,33 +55,39 @@ public class TvShowsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<TvShows>> 
 
     @Override
     public ArrayList<TvShows> loadInBackground() {
-        SyncHttpClient client = new SyncHttpClient ();
-        final ArrayList<TvShows> tvshowsItemses = new ArrayList<> ();
+        SyncHttpClient client = new SyncHttpClient();
+        final ArrayList<TvShows> tvshowsItemses = new ArrayList<>();
+        String url = "";
 
-        String url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY;
+        if (tvshow == "") {
+            url = "https://api.themoviedb.org/3/discover/tv?api_key=" + API_KEY;
+        } else {
+            url = "https://api.themoviedb.org/3/search/tv?api_key=" + API_KEY + "&language=en-US&query=" + tvshow;
+        }
 
-        client.get ( url, new AsyncHttpResponseHandler () {
+
+        client.get(url, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
-                super.onStart ();
-                setUseSynchronousMode ( true );
+                super.onStart();
+                setUseSynchronousMode(true);
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    String result = new String ( responseBody );
-                    JSONObject responseObject = new JSONObject ( result );
-                    JSONArray list = responseObject.getJSONArray ( "results" );
+                    String result = new String(responseBody);
+                    JSONObject responseObject = new JSONObject(result);
+                    JSONArray list = responseObject.getJSONArray("results");
 
-                    for (int i = 0; i < list.length (); i++) {
-                        JSONObject tvshows = list.getJSONObject ( i );
-                        TvShows tvshowsItems = new TvShows ( tvshows );
-                        tvshowsItemses.add ( tvshowsItems );
+                    for (int i = 0; i < list.length(); i++) {
+                        JSONObject tvshows = list.getJSONObject(i);
+                        TvShows tvshowsItems = new TvShows(tvshows);
+                        tvshowsItemses.add(tvshowsItems);
 
                     }
                 } catch (Exception e) {
-                    e.printStackTrace ();
+                    e.printStackTrace();
                 }
             }
 
@@ -88,7 +95,7 @@ public class TvShowsAsyncTaskLoader extends AsyncTaskLoader<ArrayList<TvShows>> 
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 //Jika response gagal maka , do nothing
             }
-        } );
+        });
         return tvshowsItemses;
     }
 }

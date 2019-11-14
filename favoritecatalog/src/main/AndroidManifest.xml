@@ -3,6 +3,7 @@
     package="com.example.favoritecatalog">
     <uses-permission android:name="com.dicoding.picodiploma.academy.READ_DATABASE" />
     <uses-permission android:name="com.dicoding.picodiploma.academy.WRITE_DATABASE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

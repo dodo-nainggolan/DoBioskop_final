@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.lang.ref.WeakReference;
@@ -32,7 +33,10 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
 //        fav.add(new FavoriteFilm(101,"ASE","2112","2223",""));
 //
 //        adapter = new FavoriteFilmAdapter(fav);
+        adapter = new FavoriteFilmAdapter();
         rvView.setAdapter(adapter);
+        rvView.setLayoutManager(new LinearLayoutManager(this));
+
 
         HandlerThread handlerThread = new HandlerThread("DataObserver");
         handlerThread.start();
@@ -50,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
 
     @Override
     public void postExecute(ArrayList<FavoriteFilm> favoriteFilms) {
-        if(favoriteFilms.size() > 0) {
+        if (favoriteFilms.size() > 0) {
             adapter.setListNotes(favoriteFilms);
-        }
-        else {
+            adapter.notifyDataSetChanged();
+        } else {
             adapter.setListNotes(new ArrayList<FavoriteFilm>());
             Toast.makeText(getApplicationContext(), "GA ADA TULISAN!", Toast.LENGTH_SHORT).show();
         }
@@ -84,11 +88,10 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
         public FavoriteFilmAsync(Context context, FavoriteFilmCallback callback) {
             weakContext = new WeakReference<>(context);
             weakCallback = new WeakReference<>(callback);
-
-            Log.e("ASYNC", "START !");
         }
 
-        public FavoriteFilmAsync() {}
+        public FavoriteFilmAsync() {
+        }
 
         @Override
         protected void onPreExecute() {
@@ -99,7 +102,16 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
         @Override
         protected ArrayList<FavoriteFilm> doInBackground(Void... voids) {
             Context context = weakContext.get();
-            Cursor dataFavoriteFilm = context.getContentResolver().query(DatabaseContractFilm.MoviesColumn.CONTENT_URI, null,null,null,null);
+
+            Cursor dataFavoriteFilm = context.getContentResolver().query(
+                    DatabaseContractFilm.MoviesColumn.CONTENT_URI,
+                    null,
+                    null,
+                    null,
+                    null);
+
+            Log.e("dataFetch", dataFavoriteFilm.getColumnCount() + "");
+
             return MappingHelper.mapCursorToArrayList(dataFavoriteFilm);
         }
 
@@ -113,5 +125,6 @@ public class MainActivity extends AppCompatActivity implements FavoriteFilmCallb
 
 interface FavoriteFilmCallback {
     void preExecute();
+
     void postExecute(ArrayList<FavoriteFilm> favoriteFilms);
 }

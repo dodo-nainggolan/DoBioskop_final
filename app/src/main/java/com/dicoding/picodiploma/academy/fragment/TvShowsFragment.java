@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.dicoding.picodiploma.academy.R;
@@ -29,10 +31,12 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
 
     TvShowsAdapter adapter;
 
-    private ArrayList<TvShows> list = new ArrayList<> ();
+    private ArrayList<TvShows> list = new ArrayList<>();
 
     private RecyclerView rv;
     private ProgressBar progressBar;
+    private Button btnSearchTv;
+    private EditText searchBarTv;
 
     public TvShowsFragment() {
         // Required empty public constructor
@@ -41,38 +45,51 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate ( R.layout.fragment_tv_shows, container, false );
+        View v = inflater.inflate(R.layout.fragment_tv_shows, container, false);
         return v;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated ( view, savedInstanceState );
+        super.onViewCreated(view, savedInstanceState);
 
-        adapter = new TvShowsAdapter ();
-        adapter.notifyDataSetChanged ();
+        adapter = new TvShowsAdapter();
+        adapter.notifyDataSetChanged();
 
-        rv = view.findViewById ( R.id.grid_view_list_item );
-        progressBar = view.findViewById ( R.id.progressBar );
+        searchBarTv = view.findViewById(R.id.search_bar_tv);
+        btnSearchTv = view.findViewById(R.id.btn_search_tv);
+        rv = view.findViewById(R.id.grid_view_list_item);
+        progressBar = view.findViewById(R.id.progressBar);
 
-        rv.setLayoutManager ( new GridLayoutManager ( getActivity (), 2 ) );
-        rv.setAdapter ( adapter );
 
-        Bundle bundle = new Bundle ();
 
-        getLoaderManager ().initLoader ( 0, bundle, this );
+        btnSearchTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("kunci", searchBarTv.getText().toString());
+
+                getLoaderManager().restartLoader(0, bundle, TvShowsFragment.this);
+            }
+        });
+
+        rv.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        rv.setAdapter(adapter);
+
+        Bundle bundle = new Bundle();
+        getLoaderManager().initLoader(0, bundle, this);
     }
 
     @Override
     public Loader<ArrayList<TvShows>> onCreateLoader(int id, Bundle args) {
-
-        return new TvShowsAsyncTaskLoader ( getActivity (), "" );
+        showLoading(true);
+        return new TvShowsAsyncTaskLoader(getActivity(), args.getString("kunci", ""));
     }
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<TvShows>> loader, ArrayList<TvShows> data) {
-        adapter.setData ( data );
-
+        adapter.setData(data);
+        showLoading(false);
     }
 
 
@@ -81,11 +98,12 @@ public class TvShowsFragment extends Fragment implements LoaderManager.LoaderCal
 //TODO optimize dirty trick
 //         adapter.setData ( null );
     }
+
     private void showLoading(Boolean state) {
         if (state) {
-            progressBar.setVisibility ( View.VISIBLE );
+            progressBar.setVisibility(View.VISIBLE);
         } else {
-            progressBar.setVisibility ( View.GONE );
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

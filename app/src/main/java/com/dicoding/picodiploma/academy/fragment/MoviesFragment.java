@@ -25,10 +25,6 @@ import com.dicoding.picodiploma.academy.entity.Movies;
 
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class MoviesFragment extends Fragment implements LoaderManager.LoaderCallbacks<ArrayList<Movies>> {
 
     MoviesAdapter adapter;
@@ -64,7 +60,7 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("cari",search_bar.getText().toString());
+                bundle.putString("cari", search_bar.getText().toString());
 
                 getLoaderManager().restartLoader(0, bundle, MoviesFragment.this);
             }
@@ -83,10 +79,6 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public Loader<ArrayList<Movies>> onCreateLoader(int id, Bundle args) {
         showLoading(true);
-
-
-        Log.e("oncreateloader", args.getString("cari", "GA NONGOL" ));
-        args.getString("cari", "GA NONGOL");
         return new MoviesAsyncTaskLoader(getActivity(), args.getString("cari", ""));
     }
 
@@ -104,7 +96,6 @@ public class MoviesFragment extends Fragment implements LoaderManager.LoaderCall
 //        showLoading(true);
 //        new MoviesAsyncTaskLoader(getActivity(), "");
     }
-
 
 
     private void showLoading(Boolean state) {

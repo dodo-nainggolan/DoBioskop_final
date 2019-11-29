@@ -4,7 +4,6 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
@@ -16,11 +15,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
@@ -28,7 +25,6 @@ import com.dicoding.picodiploma.academy.MyTabLayout;
 import com.dicoding.picodiploma.academy.R;
 import com.dicoding.picodiploma.academy.db.FavoriteFilmHelper;
 import com.dicoding.picodiploma.academy.db.FavoriteTvShowsHelper;
-import com.dicoding.picodiploma.academy.fragment.MoviesAsyncTaskLoader;
 import com.dicoding.picodiploma.academy.fragment.MoviesFragment;
 import com.dicoding.picodiploma.academy.fragment.TvShowsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -55,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
                     title = "MOVIES";
                     setTitle(title);
-
 
                     fragment = new MoviesFragment();
                     getSupportFragmentManager().beginTransaction()
@@ -125,40 +120,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void sendNotification(View view) {
-
-        Intent intent = new Intent(MainActivity.this, MainActivity.class);
-
-        Log.e("TOMBOL", "Ditekan");
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
-
-        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_notifications_black_24dp))
-                .setContentTitle(getResources().getString(R.string.content_title))
-                .setContentText(getResources().getString(R.string.content_text))
-                .setSubText(getResources().getString(R.string.subtext))
-                .setAutoCancel(true);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-            mBuilder.setChannelId(CHANNEL_ID);
-            if (mNotificationManager != null) {
-                mNotificationManager.createNotificationChannel(channel);
-            }
-        }
-
-        Notification notification = mBuilder.build();
-
-        if (mNotificationManager != null) {
-            mNotificationManager.notify(NOTIFICATION_ID, notification);
-        }
     }
 
 }

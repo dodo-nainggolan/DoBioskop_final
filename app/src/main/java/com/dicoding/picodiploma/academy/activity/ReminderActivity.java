@@ -3,11 +3,13 @@ package com.dicoding.picodiploma.academy.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.dicoding.picodiploma.academy.DailyAlarmReceiver;
 //import com.dicoding.picodiploma.academy.NewMovieAlarmReceiver;
+import com.dicoding.picodiploma.academy.NewMovieAlarmReceiver;
 import com.dicoding.picodiploma.academy.R;
 
 public class ReminderActivity extends AppCompatActivity {
@@ -15,6 +17,7 @@ public class ReminderActivity extends AppCompatActivity {
     Switch dailyReminder;
     Switch newMoviesReminder;
     DailyAlarmReceiver dailyAlarmReceiver;
+    NewMovieAlarmReceiver newMovieAlarmReceiver;
 
 
     @Override
@@ -25,28 +28,28 @@ public class ReminderActivity extends AppCompatActivity {
 
         dailyReminder = findViewById(R.id.daily_reminder);
         newMoviesReminder = findViewById(R.id.new_reminder);
-        dailyAlarmReceiver = new DailyAlarmReceiver();
 
-//        newMovieAlarmReceiver = new NewMovieAlarmReceiver();
+        dailyAlarmReceiver = new DailyAlarmReceiver();
+        newMovieAlarmReceiver = new NewMovieAlarmReceiver();
 
         if (dailyAlarmReceiver.isAlarmSet(this)) {
             dailyReminder.setChecked(true);
         }
-//        if (newMovieAlarmReceiver.isAlarmSet(this)) {
-//            sw_newReminder.setChecked(true);
-//        }
+        if (newMovieAlarmReceiver.isAlarmSet(this)) {
+            newMoviesReminder.setChecked(true);
+        }
 
+        newMoviesReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-//        newMoviesReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//                if (isChecked) {
-//                    newMovieAlarmReceiver.setNewMovieAlarm(getApplicationContext());
-//                } else {
-//                    newMovieAlarmReceiver.cancelAlarm(getApplicationContext());
-//                }
-//            }
-//        });
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    newMovieAlarmReceiver.setNewMovieAlarm(getApplicationContext());
+                } else {
+                    newMovieAlarmReceiver.cancelAlarm(getApplicationContext());
+                }
+            }
+        });
 
         dailyReminder.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

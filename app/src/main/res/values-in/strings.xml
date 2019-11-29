@@ -20,4 +20,6 @@
     <string name="set_daily">Daily Reminder SEt</string>
     <string name="remove_daily">Daily Reminder Removed</string>
     <string name="search">Search Something ...</string>
+    <string name="set_new_movie">Reminder New Movie Set</string>
+    <string name="remove_new_movie">Reminder Movie Removed</string>
 </resources>

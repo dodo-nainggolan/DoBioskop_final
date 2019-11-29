@@ -19,6 +19,8 @@ import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 
+import static android.app.AlarmManager.INTERVAL_DAY;
+import static android.app.AlarmManager.INTERVAL_FIFTEEN_MINUTES;
 import static android.app.AlarmManager.RTC_WAKEUP;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -52,16 +54,6 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
                 .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .setSound(alarmSound);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH);
-            channel.enableVibration(true);
-            channel.setVibrationPattern(new long[]{1000, 1000, 1000, 1000, 1000});
-            builder.setChannelId(CHANNEL_ID);
-
-            if (notificationManagerCompat != null) {
-                notificationManagerCompat.createNotificationChannel(channel);
-            }
-        }
 
         Notification notification = builder.build();
         if (notificationManagerCompat != null) {
@@ -74,18 +66,24 @@ public class DailyAlarmReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, DailyAlarmReceiver.class);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR, 19);
-        calendar.set(Calendar.MINUTE, 10);
+        calendar.set(Calendar.HOUR, 7);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Log.e(TAG, "setDailyAlarm: " + calendar.getTimeInMillis());
-        Log.e(TAG, "setDailyAlarm: " + alarmManager.INTERVAL_DAY);
-        if (alarmManager != null) {
+        Log.e(TAG, "setDailyAlarm: " + alarmManager.ELAPSED_REALTIME);
 
-            alarmManager.setInexactRepeating(RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        if (alarmManager != null) {
+            alarmManager.setInexactRepeating(RTC_WAKEUP, calendar.getTimeInMillis(), INTERVAL_DAY, pendingIntent);
             Toast.makeText(context, R.string.set_daily, Toast.LENGTH_SHORT).show();
+
+            String title = context.getString(R.string.judul_reminder);
+            String message = context.getString(R.string.pesan_reminder);
+            int notifId = ID_DAILY;
+
+            showAlarmNotification(context, title, message, notifId);
         }
 
     }
